@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fixol</title>
+  <link rel="stylesheet" href="styles.css" />
+<link rel="manifest" href="manifest.json">
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('service-worker.js');
+}
+</script>
+</head>
+<body>
+  <header>
+    <div class="profile-icon">👤</div>
+    <h1 id="title">¿Dónde tenés el problema?</h1>
+    <div class="search-icon">🔍</div>
+  </header>
+  <div class="language-switch">
+    <label>Idioma:</label>
+    <button onclick="setLanguage('es')">Español</button>
+    <button onclick="setLanguage('en')">English</button>
+  </div>
+  <main id="options">
+    <!-- Opciones dinámicas -->
+  </main>
+
+  <script>
+    const texts = {
+      es: {
+        title: "¿Dónde tenés el problema?",
+        options: [
+          { text: "🚽 Baño", link: "step2.html" },
+          { text: "🍽️ Cocina", link: "#" },
+          { text: "🚗 Vehículo", link: "#" },
+          { text: "🧺 Lavadero", link: "#" },
+          { text: "🏡 Exterior", link: "#" }
+        ]
+      },
+      en: {
+        title: "Where is the problem?",
+        options: [
+          { text: "🚽 Bathroom", link: "step2.html" },
+          { text: "🍽️ Kitchen", link: "#" },
+          { text: "🚗 Vehicle", link: "#" },
+          { text: "🧺 Laundry", link: "#" },
+          { text: "🏡 Outdoors", link: "#" }
+        ]
+      }
+    };
+
+    function setLanguage(lang) {
+      document.getElementById('title').innerText = texts[lang].title;
+      const optionsContainer = document.getElementById('options');
+      optionsContainer.innerHTML = "";
+      texts[lang].options.forEach(opt => {
+        const btn = document.createElement('a');
+        btn.className = "option";
+        btn.href = opt.link;
+        btn.innerText = opt.text;
+        optionsContainer.appendChild(btn);
+      });
+    }
+
+    setLanguage('es');
+  </script>
+</body>
+</html>
